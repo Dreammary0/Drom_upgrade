@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/footer.css"/>
+
+    <title> Подать объявление о продаже автомобиля типа на дроме </title>
+</head>
+
+<script type="text/javascript">
+    // Формируем словарь моделей
+    let modelNames = {};
+    {% for iter, row in iterrows(brands) %}
+        modelNames['{{ row['BrandName'] }}'] = '';
+    {% endfor %}
+    {% for iter, row in iterrows(models) %}
+        modelNames['{{ row['BrandName'] }}'] += '{{ row['ModelName'] }},';
+    {% endfor %}
+    {% for iter, row in iterrows(brands) %}
+        modelNames['{{ row['BrandName'] }}'] = modelNames['{{ row['BrandName'] }}'].slice(0, -1);
+    {% endfor %}
+    // ф-ция, возвращающая массив моделей по заданному бренду
+    function getModelByBrand(selected) {
+        let foundModels = modelNames[selected];
+        return foundModels.split(","); // преобразуем строку в массив городов
+    }
+
+    // ф-ция, выводящая динамически список городов
+    function MkModels(selected) {
+        if (selected === "Любая марка") {
+            let modelsList = document.forms["new_selling"].elements["model"];
+            document.forms["new_selling"].elements["model"].disabled = true;
+            modelsList.length = 0; // удаляем все элементы из списка моделей
+            if (document.createElement) {
+                let newModelListOption = document.createElement("OPTION");
+                newModelListOption.text = "Модель";
+                newModelListOption.value = "";
+                // тут мы используем для добавления элемента либо метод IE, либо DOM
+                (modelsList.options.add) ? modelsList.options.add(newModelListOption) : modelsList.add(newModelListOption, null);
+            }
+        } else {
+            let currModels = getModelByBrand(selected);
+            let currModelsCount = currModels.length;
+            let modelsList = document.forms["new_selling"].elements["model"];
+            let modelsListOptionsCnt = modelsList.options.length;
+            modelsList.length = 0; // удаляем все элементы из списка моделей
+            for (let i = 0; i < currModelsCount; i++) {
+                // далее мы добавляем необходимые модели в список
+                if (document.createElement) {
+                    let newModelListOption = document.createElement("OPTION");
+                    newModelListOption.text = currModels[i];
+                    newModelListOption.value = currModels[i];
+                    if (newModelListOption.value === '{{ model }}') {
+                        newModelListOption.selected = 'selected';
+                    }
+                    // тут мы используем для добавления элемента либо метод IE, либо DOM
+                    (modelsList.options.add) ? modelsList.options.add(newModelListOption) : modelsList.add(newModelListOption, null);
+                } else {
+                    // для NN3.x-4.x
+                    modelsList.options[i] = new Option(currModels[i], currModels[i], false, false);
+                }
+            }
+            document.forms["new_selling"].elements["model"].disabled = false;
+        }
+    }
+
+    // инициируем изменение элементов в списке моделей, в зависимости от текущего бренда
+    window.onload = function () {
+        MkModels(document.forms["new_selling"].elements["brand"].options[document.forms["filter"].elements["brand"].selectedIndex].text);
+    };
+    //-->
+</script>
+
+<body>
+<div class="menu">
+    <ul>
+        <li style="height: 50px; padding: 0; margin: 0;background-color: black;">
+            <a href="{{ url_for("index") }}" style="padding: 0; margin: 0;">
+                <img src="/static/images/logo.png" style="padding: 0; margin: 0; height: 48px;">
+            </a>
+        </li>
+
+        {% if user_id==0 %}
+            <li style="float: right; background-color: black;">
+                <a style="color: #cccccc;" href={{ url_for("login") }}>Вход без регистрации</a>
+            </li>
+        {% else %}
+            <li style="float: right; background-color: black;">
+                <a style="color: #cccccc;" href={{ url_for("index") }}>Назад</a>
+            </li>
+        {% endif %}
+    </ul>
+</div>
+<div class = 'wrapper'>
+<div class="content-container" style="zoom: 0.94;">
+{% if not user_id %}
+    <div class="selling" style="background-color: lightpink; width: fit-content;
+    margin-left:auto; margin-right: auto; text-align: center;">
+        Необходима авторизация!
+    </div>
+{% else %}
+    <h1 align="center">Создание объявления</h1>
+    <form class="filter" name="new_selling" style="width: 800px; margin-left: auto; margin-right: auto;">
+        <select name="brand" onchange="MkModels(this.options[this.selectedIndex].text);" required>
+            <option selected disabled hidden>Марка</option>
+            {% for iter, row in iterrows(brands) %}
+                <option value="{{ row['BrandName'] }}"
+                        {% if row['BrandName']==brand %}selected{% endif %}>
+                    {{ row['BrandName'] }}
+                </option>
+            {% endfor %}
+        </select>
+        <select name="model" disabled required>
+            <option selected disabled hidden>Модель</option>
+        </select>
+
+        <textarea name="description" placeholder="Описание" style="float: right; height: 370px; padding-bottom: 0; resize: none;"></textarea>
+
+        <input type="text" name="vin" placeholder="VIN / Номер кузова" required>
+        <input type="text" name="state_number" placeholder="Гос. номер" required>
+        <input type="text" name="engine_id" placeholder="Марка двигателя" required>
+        <input type="number" min=0 max=10 step=0.1 name="capacity" placeholder="Объем двигателя" required>
+        <input type="number" min=0 max=2000 step=1 name="hp" placeholder="Мощность двигателя" required>
+        <select name="fuel" required>
+            <option selected disabled hidden>Топливо</option>
+            {% for iter, row in iterrows(fuels) %}
+                <option value={{ row['FuelType'] }}>
+                    {{ row['FuelType'] }}
+                </option>
+            {% endfor %}
+        </select>
+        <input type="number" placeholder="Год выпуска" min=1940 max=2023 name="year" required>
+        <select name="transmission" required>
+            <option selected disabled hidden>КПП</option>
+            {% for iter, row in iterrows(transmissions) %}
+                <option value={{ row['TransmissionType'] }}>
+                    {{ row['TransmissionType'] }}
+                </option>
+            {% endfor %}
+        </select>
+        <select name="drive" required>
+            <option selected disabled hidden>Привод</option>
+            {% for iter, row in iterrows(drives) %}
+                <option value={{ row['DriveType'] }}>
+                    {{ row['DriveType'] }}
+                </option>
+            {% endfor %}
+        </select>
+        <input type="text" name="equip_id" placeholder="Название комплектации" required>
+        <input type="number" min=0 max=100000000 step=1 name="price" placeholder="Стоимость" required>
+        <input type="submit" value="Опубликовать" style="float:right !important; width: 523px;">
+    </form>
+{% endif %}
+</div>
+<footer>
+    <div class="footer-left-all">
+        <div class="footer-left" style="  margin-right: 36px;">
+            <span class="phone-number">+7 (914) 798-29-55</span>
+            <span class="name">Сазонтова Мария Дмитриевна</span>
+        </div>
+        <div  class="footer-left">
+            <span class="phone-number">+7 (914) 798-19-03</span>
+            <span class="name">Дудко Денис Олегович</span>
+
+        </div>
+    </div>
+  <div class="footer-right">
+    <span class="copyright">&copy;2023 Типа дрома</span>
+  </div>
+</footer>
+</div>
+</body>
+</html>

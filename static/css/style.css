@@ -1,0 +1,202 @@
+html{height: 100%;
+    font-family: "Arial", serif;
+
+}
+
+body {
+    margin: 0;
+    font-family: "Arial", serif;
+    height: 100%;
+}
+
+.content-container {
+    margin: 15px 15px 0;
+      padding-bottom: 100px;
+}
+.wrapper {
+  min-height: 100%;
+  position: relative;
+}
+
+/* меню страниц */
+.menu {
+    background-color: black;
+    /*box-shadow: 4px 5px 10px rgba(0, 0, 0, 0.4);*/
+    width: 100%;
+}
+
+.menu ul {
+    margin-top: 0;
+}
+
+.menu li {
+    display: inline-block;
+    vertical-align: top;
+    color: white;
+    padding: 11px 0;
+    background-color: #db001a;
+    border-radius: 10px;
+    margin-top: 4.5px;
+}
+
+.menu a {
+    text-decoration: none; /* Убирает подчеркивание для ссылок */
+    color: white;
+    padding: 15px 20px;
+}
+
+.menu a:hover {
+    color: white !important;
+}
+
+.menu li:hover {
+    background-color: #bd0016;
+    cursor: pointer;
+    color: white;
+}
+
+.menu ul {
+    padding: 0;
+}
+
+.block {
+    padding: 10px 20px;
+}
+
+/*Вывод брендов*/
+.ul_brands {
+    list-style-type: none;
+    padding: 0;
+    width: 900px;
+    columns: 4;
+    -webkit-columns: 4;
+    -moz-columns: 4;
+}
+
+.ul_brands li {
+    padding-bottom: 15px;
+}
+
+.ul_brands a {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/*Фильтр*/
+.filter {
+    border-radius: 15px;
+    max-width: 1075px;
+    background-color: #eee;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.filter input, .filter textarea {
+    width: 249px;
+    height: 50px;
+    border-radius: 8px;
+    display: inline-block;
+    font-size: 16px;
+    background: white;
+    margin: 5px;
+}
+
+.filter input {
+    width: 249px;
+    height: 50px;
+    border-radius: 8px;
+    display: inline-block;
+    font-size: 16px;
+    background: white;
+    margin: 5px;
+}
+
+.filter input[type=submit] {
+    float: right;
+    width: 259px;
+    height: 54px;
+    color: white;
+    background-color: black;
+    font-weight: bold;
+}
+
+.filter input[type=submit]:hover {
+    cursor: pointer;
+    box-shadow: 1px 1px 3px darkgray;
+    background-color: #333333;
+}
+
+.filter:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.filter select {
+    width: 254px;
+    height: 54px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 5px;
+}
+
+.filter > *:hover {
+    box-shadow: 1px 1px 3px darkgray;
+}
+
+.filter > * {
+    border: lightgray 1px solid;
+}
+
+.from {
+    margin-right: 0 !important;
+    width: 120px !important;
+    border-radius: 8px 0 0 8px !important;
+}
+
+.to {
+    margin-left: 0 !important;
+    width: 120px !important;
+    border-radius: 0 8px 8px 0 !important;
+}
+
+/*Вывод объявления*/
+.selling {
+    border-radius: 15px;
+    background-color: #eee;
+    width: 1067px;
+    padding: 15px;
+    margin-bottom: 30px;
+}
+
+.selling table {
+    width: 100%;
+}
+
+.selling table > * {
+    width: max-content;
+}
+
+.selling p {
+    margin: 0 0 5px;
+}
+
+.lil_button {
+    width: fit-content;
+    padding: 7px;
+    border-radius: 8px;
+    color: white;
+    background-color: black;
+    font-weight: bold;
+}
+
+.lil_button:hover {
+    cursor: pointer;
+    box-shadow: 1px 1px 3px darkgray;
+    background-color: #333333;
+}

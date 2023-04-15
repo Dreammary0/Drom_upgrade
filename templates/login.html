@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/login_form.css"/>
+
+    <title> Вход без регистрации типа на дром </title>
+</head>
+<body>
+<div class="menu">
+    <ul>
+        <li style="height: 50px; padding: 0; margin: 0;background-color: black;">
+            <a href="{{ url_for("index") }}" style="padding: 0; margin: 0;">
+                <img src="/static/images/logo.png" style="padding: 0; margin: 0; height: 48px;">
+            </a>
+        </li>
+
+        <li style="float: right; background-color: black;">
+            <a style="color: #cccccc;" href={{ url_for('index') }}>Назад</a>
+        </li>
+    </ul>
+</div>
+
+<div class="container">
+
+    <div class="btn-group">
+        <button class="btn-left" onclick="activateForm('login')">Вход</button>
+        <button class="btn-right" onclick="activateForm('register')">Регистрация</button>
+    </div>
+
+    <form id="login" class="active">
+        <label for="username">Логин</label>
+        <input type="text" id="username" name="login" placeholder="Введите логин">
+        <label for="password">Пароль</label>
+        <input type="password" id="password" name="password" placeholder="Введите пароль">
+        <button type="submit" value="Войти" >Войти</button>
+    </form>
+
+    {% if mistake %}
+        <div class="selling" id="login_error" style="background-color: lightpink; width: 400px;
+    margin-left:auto; margin-right: auto; margin-top: 20px; text-align: center;    display: block;">
+            Введены некорректные данные!<br>
+            Попробуйте еще раз...
+        </div>
+    {% endif %}
+
+    <form id="register">
+        <label for="fullname">ФИО</label>
+        <input type="text" id="fullname" name="fullname" required>
+        <label for="phone">Номер телефона</label>
+        <input type="tel" id="phone" name="phone" required>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+
+
+        <label for="city">Город</label>
+            <select id="city" name="city" required>
+                <option value="" >Выберите город</option>
+                {% for iter, row in iterrows(cities) %}
+                <option value="{{ row['CityName'] }}">
+                    {{ row['CityName'] }}
+                </option>
+                {% endfor %}
+            </select>
+
+
+        <label for="new_username">Логин</label>
+        <input type="text" id="new_username" name="new_login" required>
+        <label for="new_password">Пароль</label>
+        <input type="password" id="new_password" name="new_password" required>
+        <button type="submit" value="Зарегистрироваться">Зарегистрироваться</button>
+    </form>
+
+    <script>
+        function activateForm(formName) {
+            var forms = document.getElementsByTagName("form");
+            for (var i = 0; i < forms.length; i++) {
+                forms[i].classList.remove('active');
+            }
+            document.getElementById(formName).classList.add('active');
+
+            if (formName === 'login') {
+                document.querySelector('.btn-left').style.backgroundColor = '#db001a';
+                document.querySelector('.btn-right').style.backgroundColor = 'black';
+
+            } else {
+                document.querySelector('.btn-left').style.backgroundColor = 'black';
+                document.querySelector('.btn-right').style.backgroundColor = '#db001a';
+                document.querySelector('#login_error').style.display = 'none'; // скрываем элемент
+
+
+            }
+
+        }
+
+
+    </script>
+</div>
+
+</body>
+</html>

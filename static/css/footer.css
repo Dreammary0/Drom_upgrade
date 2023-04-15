@@ -1,0 +1,43 @@
+
+footer {
+  background-color: #f2f2f2;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  color: #858383;
+  position: absolute;
+  bottom: 0;
+  width: 97.1%;
+  height: 35px;
+
+
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  margin-right: 0;
+
+}
+.footer-left-all{
+  display: flex;
+  flex-direction: row;
+}
+
+.phone-number {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.name {
+  font-size: 14px;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+}
+
+.copyrigth {
+  font-size: 14px;
+}
