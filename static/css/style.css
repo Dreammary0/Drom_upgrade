@@ -11,7 +11,7 @@ body {
 
 .content-container {
     margin: 15px 15px 0;
-      padding-bottom: 100px;
+    padding-bottom: 50px;
 }
 .wrapper {
   min-height: 100%;
@@ -199,4 +199,24 @@ body {
     cursor: pointer;
     box-shadow: 1px 1px 3px darkgray;
     background-color: #333333;
+}
+
+
+/*Favourites*/
+.star{
+    background-color: transparent;
+    border: none;
+    width: 32px;
+    height: 34px;
+    font-size: 30px;
+    cursor: pointer;
+    position: relative;
+    color: darkgray;
+}
+
+.star:hover{
+    color: #db001a;
+}
+.star:active {
+    color: #bd0016;
 }

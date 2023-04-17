@@ -54,7 +54,7 @@ def get_fuels(conn):
 
 def get_selling(conn, city=None, brand=None, model=None, min_price=None, max_price=None,
                 min_year=None, max_year=None, transmission=None, drive=None,
-                min_hp=None, max_hp=None):
+                min_hp=None, max_hp=None, user_id=None, selling_id=None):
     check_actuality(conn)
     df = pandas.read_sql(f'''
     select Car.IDUser, BodyOrVinNumber, StateNumber, BrandName, ModelName,
@@ -65,6 +65,9 @@ def get_selling(conn, city=None, brand=None, model=None, min_price=None, max_pri
     join Engine E on E.IDEngine = Car.IDEngine
     join User U on U.IDUser = Car.IDUser
     ''', conn)
+    if selling_id:
+        df = df.where(df['IDSelling'] == selling_id).dropna(how='any')
+        return df
     if city:
         df = df.where(df['CityName'] == city).dropna(how='any')
     if brand:
@@ -87,6 +90,8 @@ def get_selling(conn, city=None, brand=None, model=None, min_price=None, max_pri
         df = df.where(df['HP'] >= min_hp).dropna(how='any')
     if max_hp:
         df = df.where(df['HP'] <= max_hp).dropna(how='any')
+    if user_id:
+        df = df.where(df['IDUser'] == user_id).dropna(how='any')
 
     df = df.sort_values(by='Actuality', ascending=False)
     return df

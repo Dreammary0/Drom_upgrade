@@ -7,7 +7,6 @@
     <link rel="stylesheet" type="text/css" href="/static/css/footer.css"/>
 
 
-
     <title> Типа дрома - цены на автомобили </title>
 </head>
 <body>
@@ -37,98 +36,235 @@
 </div>
 
 <div class="wrapper">
-<div class="content-container">
-<form>
-    <label for="login">Логин:</label>
-    <input type="text" id="login" name="login" value={{ login }} readonly></br>
-    <label for="name">ФИО:</label>
-    <input type="text" id="name" name="name" value="{{ fio }}" readonly></br>
-    <label for="phone">Номер телефона:</label>
-    <input type="text" id="phone" name="phone" value="{{ phone }}" readonly></br>
-    <label for="email">E-mail:</label>
-    <input type="email" id="email" name="email" value="{{ email }}" readonly></br>
+    <div class="content-container">
+        <form class="form_from_manya">
+            <label for="login">Логин:</label>
+            <input type="text" id="login" name="login" value={{ login }} readonly></br>
+            <label for="name">ФИО:</label>
+            <input type="text" id="name" name="name" value="{{ fio }}" readonly></br>
+            <label for="phone">Номер телефона:</label>
+            <input type="text" id="phone" name="phone" value="{{ phone }}" readonly></br>
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" value="{{ email }}" readonly></br>
 
-   <label for="city">Город:</label>
-    <select id="city" name="city" disabled>
-        <option value="">Выберите город</option>
-        {% for iter, row in iterrows(cities) %}
-        <option value="{{ row['CityName'] }}" {% if row['CityName'] == town %} selected {% endif %} >
-            {{ row['CityName'] }}
-        </option>
-        {% endfor %}
-    </select>
+            <label for="city">Город:</label>
+            <select id="city" name="city" style="width: 101%;" disabled>
+                <option value="" disabled>Выберите город</option>
+                {% for iter, row in iterrows(cities) %}
+                    <option value="{{ row['CityName'] }}" {% if row['CityName'] == town %} selected {% endif %} >
+                        {{ row['CityName'] }}
+                    </option>
+                {% endfor %}
+            </select>
 
-    <button id="changedBtn" style="display: block;" type="button" onclick="edit()">Редактировать данные</button>
-    <button type="submit" id="submitBtn" style="display: none;" name ='update_account_info' value="update">Сохранить изменения</button>
-</form>
+            <button id="changedBtn" style="display: block;" type="button" onclick="edit_user_info()">Редактировать
+                данные
+            </button>
+            <button type="submit" id="submitBtn" style="display: none;" name='update_account_info' value="update">
+                Сохранить изменения
+            </button>
+        </form>
 
-<script>
-  function edit() {
-   document.getElementById("login").readOnly = false;
-   document.getElementById("name").readOnly = false;
-   document.getElementById("phone").readOnly = false;
-   document.getElementById("email").readOnly = false;
-   document.getElementById("city").readOnly = false;
+        <script>
+            function edit_user_info() {
+                document.getElementById("login").readOnly = false;
+                document.getElementById("name").readOnly = false;
+                document.getElementById("phone").readOnly = false;
+                document.getElementById("email").readOnly = false;
+                document.getElementById("city").readOnly = false;
 
-   document.getElementById("changedBtn").style.display = "none";
-   document.getElementById("submitBtn").style.display = "block";
+                document.getElementById("changedBtn").style.display = "none";
+                document.getElementById("submitBtn").style.display = "block";
 
-   document.getElementById("login").style.border = '1px double black';
-   document.getElementById("name").style.border = '1px double black';
-   document.getElementById("phone").style.border = '1px double black';
-   document.getElementById("email").style.border = '1px double black';
-   document.getElementById("city").style.border = '1px double black';
-   document.getElementById("city").removeAttribute("disabled");
-  }
- </script>
-
-<h2>Сменить пароль</h2>
-<form>
-    <label for="old_password">Старый пароль:</label>
-    <input type="password" id="old_password" name="old_password" required></br>
-    <label for="new_password">Новый пароль:</label>
-    <input type="password" id="new_password" name="new_password" required></br>
-    <button id="update_pwd" style="display: block;" type="submit" name = 'update_pwd'>Сменить пароль</button>
-</form>
+                document.getElementById("login").style.border = '1px double black';
+                document.getElementById("name").style.border = '1px double black';
+                document.getElementById("phone").style.border = '1px double black';
+                document.getElementById("email").style.border = '1px double black';
+                document.getElementById("city").style.border = '1px double black';
+                document.getElementById("city").removeAttribute("disabled");
+            }
 
 
-<h2>Список избранных объявлений</h2>
-<ul style="background-color: #eee; margin-left: 20px">
-    <li>Объявление 1</li>
-    <button>Удалить объявление</button>
+            function edit_selling() {
+                document.getElementById("login").readOnly = false;
+                document.getElementById("name").readOnly = false;
+                document.getElementById("phone").readOnly = false;
+                document.getElementById("email").readOnly = false;
+                document.getElementById("city").readOnly = false;
 
-    <li>Объявление 2</li>
-    <button>Удалить объявление</button>
-</ul>
+                document.getElementById("changedBtn").style.display = "none";
+                document.getElementById("submitBtn").style.display = "block";
 
-<h2 >Опубликованные объявления</h2>
-<ul style="background-color: #eee;margin-left: 20px">
-    <li>Объявление 1</li>
-    <button>Редактировать объявление</button>
-    <button>Удалить объявление</button>
+                document.getElementById("login").style.border = '1px double black';
+                document.getElementById("name").style.border = '1px double black';
+                document.getElementById("phone").style.border = '1px double black';
+                document.getElementById("email").style.border = '1px double black';
+                document.getElementById("city").style.border = '1px double black';
+                document.getElementById("city").removeAttribute("disabled");
+            }
+        </script>
 
-    <li>Объявление 2</li>
-    <button>Редактировать объявление</button>
-    <button>Удалить объявление</button>
-</ul>
-</div>
+        <h2 class="h2">Сменить пароль</h2>
+        <form class="form_from_manya">
+            <label for="old_password">Старый пароль:</label>
+            <input type="password" id="old_password" name="old_password" required><br>
+            <label for="new_password">Новый пароль:</label>
+            <input type="password" id="new_password" name="new_password" required><br>
+            <button id="update_pwd" style="display: block;" type="submit" name='update_pwd'>Сменить пароль</button>
+        </form>
 
-<footer>
-    <div class="footer-left-all">
-        <div class="footer-left" style="  margin-right: 36px;">
-            <span class="phone-number">+7 (914) 798-29-55</span>
-            <span class="name">Сазонтова Мария Дмитриевна</span>
-        </div>
-        <div  class="footer-left">
-            <span class="phone-number">+7 (914) 798-19-03</span>
-            <span class="name">Дудко Денис Олегович</span>
 
+        <h2 class="h2">Список избранных объявлений</h2>
+        <ul style="background-color: #eee; margin-left: 20px">
+            <li>Объявление 1</li>
+            <button>Удалить объявление</button>
+
+            <li>Объявление 2</li>
+            <button>Удалить объявление</button>
+        </ul>
+
+        <h2 class="h2">Опубликованные объявления</h2>
+
+        <div class="content-container">
+            {% for iter, row in iterrows(df_selling) %}
+                <div class="selling">
+                    {# Таблица как контейнер, в ней еще 3 таблицы - код некрасивый, ну и ладно,
+                поставленную задачу решает) #}
+                    <table style="table-layout: fixed;">
+                        <tr>
+                            <td colspan=2>
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <h2 style="margin-top: 0;{% if not row['Actuality'] %}text-decoration: line-through;{% endif %}">
+                                                {{ row['BrandName'] + ' ' + row['ModelName'] + ', ' + str(int(row['ReleaseDate'])) }}
+                                                <span style="float: right; margin-top: 0;">{{ str(int(row['Price'])) + ' ₽' }}</span>
+                                            </h2>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr style="vertical-align: top;">
+                            <td>
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <p style="color: gray;">Двигатель</p>
+                                        </td>
+                                        <td>
+                                            <p style="margin-top: 0;">{{ row['IDEngine'] + ', ' + row['FuelType'] + ', ' + str(row['Capacity']) + ' л' }}</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p style="color: gray;">Мощность</p>
+                                        </td>
+                                        <td>
+                                            <p style="margin-top: 0;">{{ str(int(row['HP'])) + ' л.с.' }}</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p style="color: gray;">Коробка передач</p>
+                                        </td>
+                                        <td>
+                                            <p style="margin-top: 0;">{{ row['TransmissionType'] }}</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p style="color: gray;">Привод</p>
+                                        </td>
+                                        <td>
+                                            <p style="margin-top: 0;">{{ row['DriveType'] }}</p>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <p style="color: gray;">VIN / Номер кузова:</p>
+                                        </td>
+                                        <td>
+                                            <p style="margin-top: 0;">{{ row['BodyOrVinNumber'] }}</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p style="color: gray;">Гос. номер</p>
+                                        </td>
+                                        <td>
+                                            <p style="margin-top: 0;">{{ row['StateNumber'] }}</p>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td rowspan=0
+                                            style="vertical-align: top; width: 50%; padding-right: 0; padding-left: 50px;">
+                                            <p style="margin-top: 0; text-align: left; white-space: pre-wrap;"><span
+                                                    style="color: gray;">Дополнительно: </span>{{ row['Description'] }}
+                                            </p>
+                                            <p><span style="color: gray;">Город: </span>{{ row['CityName'] }}</p>
+                                            <p style="color: gray;">Объявление {{ int(row['IDSelling']) }}
+                                                от {{ row['AdditionDate'] }}</p>
+                                            {% if not row['Actuality'] %}
+                                                <h3 style="margin-bottom: 5px;">Автомобиль снят с продажи</h3>
+                                            {% endif %}
+                                            {% if row['IDUser']==user_id %}
+                                                {% if row['Actuality'] %}
+                                                    <form>
+                                                        <input type="hidden" name="idSelling"
+                                                               value={{ int(round(row['IDSelling'])) }}>
+                                                        <input style="width: 210px;" class="lil_button" type="submit"
+                                                               name="remove" value="Удалить объявление">
+                                                        <input style="width: 210px;" class="lil_button" type="submit"
+                                                               name="edit_selling" value="Редактировать объявление">
+                                                    </form>
+                                                {% else %}
+                                                    <form>
+                                                        <input type="hidden" name="idSelling"
+                                                               value={{ int(round(row['IDSelling'])) }}>
+                                                        <input style="width: 210px;" class="lil_button" type="submit"
+                                                               name="restore" value="Восстановить объявление">
+                                                        <input style="width: 210px;" class="lil_button" type="submit"
+                                                               name="edit_selling" value="Редактировать объявление">
+                                                    </form>
+                                                {% endif %}
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            {% endfor %}
         </div>
     </div>
-  <div class="footer-right">
-    <span class="copyright">&copy;2023 Типа дрома</span>
-  </div>
-</footer>
+
+    <footer>
+        <div class="footer-left-all">
+            <div class="footer-left" style="  margin-right: 36px;">
+                <span class="phone-number">+7 (914) 798-29-55</span>
+                <span class="name">Сазонтова Мария Дмитриевна</span>
+            </div>
+            <div class="footer-left">
+                <span class="phone-number">+7 (914) 798-19-03</span>
+                <span class="name">Дудко Денис Олегович</span>
+
+            </div>
+        </div>
+        <div class="footer-right">
+            <span class="copyright">&copy;2023 Типа дрома</span>
+        </div>
+    </footer>
 </div>
 </body>
 </html>

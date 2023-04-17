@@ -64,12 +64,11 @@ def index():
     if min_hp and max_hp:
         min_hp, max_hp = check_min_max(min_hp, max_hp)
 
-
     if request.values.get('city'):
         session['city'] = request.values.get('city')
 
-    if session.get('user_id') is not None and session.get('city') is None:
-        selected_city = str(get_town(conn,session['user_id']))
+    if session.get('user_id') is not None and session.get('user_id') != 0 and session.get('city') is None:
+        selected_city = str(get_town(conn, session['user_id']))
     elif session.get('city') is not None:
         selected_city = session['city']
     else:
@@ -113,6 +112,7 @@ def index():
         len=len,
         str=str,
         int=int,
+        round=round,
         cities=df_city,
         selected_city=selected_city
     )

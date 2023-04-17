@@ -6,7 +6,7 @@ body {
     height: 100%;
 }
 
-h1, h2 {
+.h1, .h2 {
     color: #555;
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
@@ -14,7 +14,7 @@ h1, h2 {
     margin-left: 20px;
 }
 
-form {
+.form_from_manya {
     background-color: #eee;
     padding: 20px;
     margin: 20px;
@@ -78,7 +78,7 @@ button:active {
     background-color: #bd0016;
 }
 
-.button:hover {
+button:hover {
     cursor: pointer;
     box-shadow: 1px 1px 3px darkgray;
     background-color: #333333;
