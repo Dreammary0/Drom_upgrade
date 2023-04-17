@@ -66,8 +66,7 @@ def get_selling(conn, city=None, brand=None, model=None, min_price=None, max_pri
     join User U on U.IDUser = Car.IDUser
     ''', conn)
     if selling_id:
-        df = df.where(df['IDSelling'] == selling_id).dropna(how='any')
-        return df
+        df = df.where(df['IDSelling'] == int(selling_id)).dropna(how='any')
     if city:
         df = df.where(df['CityName'] == city).dropna(how='any')
     if brand:
