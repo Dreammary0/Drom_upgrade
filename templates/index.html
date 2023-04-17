@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/footer.css"/>
-
+    <link rel="icon" href="/static/images/favicon.png">
     <title> Типа дрома - цены на автомобили </title>
 </head>
 
@@ -92,10 +92,10 @@
         </li>
 
         {#        Выпадающий список выбора города#}
-        <select style="background-color: black;color: white; border: none;outline: none; min-width: auto; margin-top: 19px; cursor: pointer"
+        <select style="background-color: black; color: white; border: none; outline: none;
+         cursor: pointer; height: 50px; font-size: 14.5px; margin-left: 5px;"
                 onchange="sendRequest()" id="city" name="city">
-            <option value="" disabled>Выберите город</option>
-
+            <option value="Все регионы">Все регионы</option>
             {% for iter, row in iterrows(cities) %}
                 <option value="{{ row['CityName'] }}"
                         {% if row['CityName']==selected_city %}selected{% endif %}>

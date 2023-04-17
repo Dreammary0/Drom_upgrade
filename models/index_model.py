@@ -67,7 +67,7 @@ def get_selling(conn, city=None, brand=None, model=None, min_price=None, max_pri
     ''', conn)
     if selling_id:
         df = df.where(df['IDSelling'] == int(selling_id)).dropna(how='any')
-    if city:
+    if city and city != 'Все регионы':
         df = df.where(df['CityName'] == city).dropna(how='any')
     if brand:
         df = df.where(df['BrandName'] == brand).dropna(how='any')

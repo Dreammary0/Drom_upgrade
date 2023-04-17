@@ -3,8 +3,8 @@
 <head>
     <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/footer.css"/>
-
-    <title> Подать объявление о продаже автомобиля типа на дроме </title>
+    <link rel="icon" href="/static/images/favicon.png">
+    <title> Редактировать объявление о продаже автомобиля типа на дроме </title>
 </head>
 
 <script type="text/javascript">
@@ -143,7 +143,8 @@
                         </option>
                     {% endfor %}
                 </select>
-                <input type="number" placeholder="Год выпуска" min=1940 max=2023 name="year" required value={{ int(year) }}>
+                <input type="number" placeholder="Год выпуска" min=1940 max=2023 name="year" required
+                       value={{ int(year) }}>
                 <select name="transmission" required>
                     <option selected disabled hidden>КПП</option>
                     {% for iter, row in iterrows(transmissions) %}
@@ -162,7 +163,8 @@
                 </select>
                 <input type="text" name="equip_id" placeholder="Название комплектации" required
                        value={{ equip_id }}>
-                <input type="number" min=0 max=100000000 step=1 name="price" placeholder="Стоимость" required value={{ int(price) }}>
+                <input type="number" min=0 max=100000000 step=1 name="price" placeholder="Стоимость" required
+                       value={{ int(price) }}>
                 <input type="submit" value="Сохранить изменения" style="float:right !important; width: 523px;">
             </form>
         {% endif %}
