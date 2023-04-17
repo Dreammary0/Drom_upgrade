@@ -225,7 +225,7 @@
                                                             {{ row['BrandName'] + ' ' + row['ModelName'] + ', ' + str(int(row['ReleaseDate'])) }}
                                                             <input type="hidden" name="favourites"
                                                                    value={{ int(round(row['IDSelling'])) }}>
-                                                            <input type="submit" style="color: darkgray !important;"
+                                                            <input type="submit" style="color: darkgray ;"
                                                                    class="star" value="★">
                                                             <span style="float: right; margin-top: 0;">{{ str(int(row['Price'])) + ' ₽' }}</span>
 
@@ -236,7 +236,7 @@
                                                             {{ row['BrandName'] + ' ' + row['ModelName'] + ', ' + str(int(row['ReleaseDate'])) }}
                                                             <input type="hidden" name="favourites"
                                                                    value={{ int(round(row['IDSelling'])) }}>
-                                                            <input type="submit" style="color: #db001a !important;"
+                                                            <input type="submit" style="color: #db001a ;"
                                                                    class="star"
                                                                    value="★">
                                                             <span style="float: right; margin-top: 0;">{{ str(int(row['Price'])) + ' ₽' }}</span>
