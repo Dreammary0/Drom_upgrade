@@ -225,21 +225,29 @@
                                                             {{ row['BrandName'] + ' ' + row['ModelName'] + ', ' + str(int(row['ReleaseDate'])) }}
                                                             <input type="hidden" name="favourites"
                                                                    value={{ int(round(row['IDSelling'])) }}>
-                                                            <input type="submit" style="color: darkgray !important;" class="star" value="★">
+                                                            <input type="submit" style="color: darkgray !important;"
+                                                                   class="star" value="★">
+                                                            <span style="float: right; margin-top: 0;">{{ str(int(row['Price'])) + ' ₽' }}</span>
+
+
                                                         </form>
                                                     {% else %}
                                                         <form>
                                                             {{ row['BrandName'] + ' ' + row['ModelName'] + ', ' + str(int(row['ReleaseDate'])) }}
                                                             <input type="hidden" name="favourites"
                                                                    value={{ int(round(row['IDSelling'])) }}>
-                                                            <input type="submit" style="color: #db001a !important;" class="star"
+                                                            <input type="submit" style="color: #db001a !important;"
+                                                                   class="star"
                                                                    value="★">
+                                                            <span style="float: right; margin-top: 0;">{{ str(int(row['Price'])) + ' ₽' }}</span>
+
                                                         </form>
                                                     {% endif %}
                                                 {% else %}
                                                     {{ row['BrandName'] + ' ' + row['ModelName'] + ', ' + str(int(row['ReleaseDate'])) }}
+                                                    <span style="float: right; margin-top: 0;">{{ str(int(row['Price'])) + ' ₽' }}</span>
+
                                                 {% endif %}
-                                                <span style="float: right; margin-top: 0;">{{ str(int(row['Price'])) + ' ₽' }}</span>
                                             </h2>
                                         </td>
                                     </tr>

@@ -211,6 +211,7 @@ body {
     font-size: 30px !important;
     cursor: pointer !important;
     position: relative !important;
+    margin-top: -20px;
 }
 
 .star:hover{
