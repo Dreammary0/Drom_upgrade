@@ -18,6 +18,8 @@ body {
     background-color: #eee;
     padding: 20px;
     margin: 20px;
+        /*width: 1067px;*/
+
     border-radius: 15px;
 }
 
@@ -42,20 +44,19 @@ select {
     cursor: pointer;
 }
 
-input[type="submit"] {
-    background-color: #000;
-    color: #fff;
-    padding: 7px 10px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-}
+/*input[type="submit"] {*/
+/*    background-color: #000;*/
+/*    color: #fff;*/
+/*    padding: 7px 10px;*/
+/*    border-radius: 8px;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*}*/
 
 
-
-input[type="submit"]:active {
-    background-color: #bd0016;
-}
+/*input[type="submit"]:active {*/
+/*    background-color: #bd0016;*/
+/*}*/
 
 ul {
     padding: 20px;

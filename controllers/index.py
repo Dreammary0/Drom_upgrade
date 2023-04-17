@@ -5,7 +5,7 @@ from app import app
 from flask import render_template, request, session
 from utils import get_db_connection
 from models.index_model import get_brands, get_models, \
-    get_transmissions, get_drives, get_selling, remove_selling, get_cities, get_town
+    get_transmissions, get_drives, get_selling, remove_selling, get_cities, get_town,edit_favourite_selling
 
 
 def check_min_max(min_v, max_v):
@@ -75,7 +75,7 @@ def index():
         selected_city = 'Владивосток'
 
     df_selling = get_selling(conn, selected_city, brand, model, min_price, max_price,
-                             min_year, max_year, transmission, drive, min_hp, max_hp)
+                             min_year, max_year, transmission, drive, min_hp, max_hp,user_autho=session['user_id'])
 
     if session.get('user_id') is None:
         session['user_id'] = 0
@@ -85,6 +85,10 @@ def index():
         return flask.redirect(flask.url_for('index'))
     if request.values.get('restore'):
         remove_selling(conn, session['user_id'], request.values.get('restore'), act=1)
+        return flask.redirect(flask.url_for('index'))
+
+    if request.values.get('favourites'):
+        edit_favourite_selling(conn,request.values.get('favourites'),session['user_id'])
         return flask.redirect(flask.url_for('index'))
 
     df_city = get_cities(conn)
@@ -114,6 +118,6 @@ def index():
         int=int,
         round=round,
         cities=df_city,
-        selected_city=selected_city
+        selected_city=selected_city,
     )
     return html

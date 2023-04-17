@@ -6,7 +6,7 @@ from flask import render_template, request, session
 from utils import get_db_connection
 from models.login_model import get_user_id
 from models.account_model import get_user_account_info, update_user_info, update_password, get_cities
-from models.index_model import get_selling, remove_selling
+from models.index_model import get_selling, remove_selling, get_favourite_selling, edit_favourite_selling
 
 
 @app.route('/account', methods=['get'])
@@ -43,6 +43,12 @@ def account():
     df_city = get_cities(conn)
 
     df_selling = get_selling(conn, user_id=session.get('user_id'))
+    df_favourite_selling = get_favourite_selling(conn,get_selling(conn,user_autho=session.get('user_id')))
+
+    if request.values.get('favourites'):
+        edit_favourite_selling(conn,request.values.get('favourites'),session['user_id'])
+        return flask.redirect(flask.url_for('account'))
+
     # выводим форму
     html = render_template(
         'account.html',
@@ -57,6 +63,7 @@ def account():
         int=int,
         str=str,
         round=round,
-        df_selling=df_selling
+        df_selling=df_selling,
+        df_favourite_selling = df_favourite_selling
     )
     return html

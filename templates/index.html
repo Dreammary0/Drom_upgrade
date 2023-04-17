@@ -219,13 +219,35 @@
                                     <tr>
                                         <td>
                                             <h2 style="margin-top: 0;{% if not row['Actuality'] %}text-decoration: line-through;{% endif %}">
-                                                <form>
+                                                {% if user_id %}
+                                                    {% if int(row['Like'])==0 %}
+                                                        <form>
+                                                            {{ row['BrandName'] + ' ' + row['ModelName'] + ', ' + str(int(row['ReleaseDate'])) }}
+                                                            <input type="hidden" name="favourites"
+                                                                   value={{ int(round(row['IDSelling'])) }}>
+                                                            <input type="submit" style="color: darkgray ;"
+                                                                   class="star" value="★">
+                                                            <span style="float: right; margin-top: 0;">{{ str(int(row['Price'])) + ' ₽' }}</span>
+
+
+                                                        </form>
+                                                    {% else %}
+                                                        <form>
+                                                            {{ row['BrandName'] + ' ' + row['ModelName'] + ', ' + str(int(row['ReleaseDate'])) }}
+                                                            <input type="hidden" name="favourites"
+                                                                   value={{ int(round(row['IDSelling'])) }}>
+                                                            <input type="submit" style="color: #db001a ;"
+                                                                   class="star"
+                                                                   value="★">
+                                                            <span style="float: right; margin-top: 0;">{{ str(int(row['Price'])) + ' ₽' }}</span>
+
+                                                        </form>
+                                                    {% endif %}
+                                                {% else %}
                                                     {{ row['BrandName'] + ' ' + row['ModelName'] + ', ' + str(int(row['ReleaseDate'])) }}
-                                                    <input type="hidden" name="favourites"
-                                                           value={{ int(round(row['IDSelling'])) }}>
-                                                    <input type="submit" class="star" value="★">
-                                                </form>
-                                                <span style="float: right; margin-top: 0;">{{ str(int(row['Price'])) + ' ₽' }}</span>
+                                                    <span style="float: right; margin-top: 0;">{{ str(int(row['Price'])) + ' ₽' }}</span>
+
+                                                {% endif %}
                                             </h2>
                                         </td>
                                     </tr>

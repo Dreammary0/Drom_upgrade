@@ -54,7 +54,7 @@ def get_fuels(conn):
 
 def get_selling(conn, city=None, brand=None, model=None, min_price=None, max_price=None,
                 min_year=None, max_year=None, transmission=None, drive=None,
-                min_hp=None, max_hp=None, user_id=None, selling_id=None):
+                min_hp=None, max_hp=None, user_id=None, selling_id=None, user_autho=None):
     check_actuality(conn)
     df = pandas.read_sql(f'''
     select Car.IDUser, BodyOrVinNumber, StateNumber, BrandName, ModelName,
@@ -93,6 +93,26 @@ def get_selling(conn, city=None, brand=None, model=None, min_price=None, max_pri
         df = df.where(df['IDUser'] == user_id).dropna(how='any')
 
     df = df.sort_values(by='Actuality', ascending=False)
+
+    df1 = pandas.read_sql(f'''
+       select * from User_Selling where user_id = '{user_autho}';
+       ''', conn)
+    df1.rename(columns={'selling_id': 'IDSelling', 'user_id': 'Like'}, inplace=True)
+    print(df1)
+    # объединяем таблицы по столбцу IDSelling
+    result = pandas.merge(df, df1, on='IDSelling', how='left')
+    # заменяем пропущенные значения на 0
+    result['Like'] = result['Like'].fillna(0)
+    print('inde[')
+    print(user_autho)
+    print(df1)
+    print(df)
+    print(result)
+    return result
+
+
+def get_favourite_selling(conn, df):
+    df = df.drop(df[df['Like'] == 0].index)
     return df
 
 
@@ -145,3 +165,22 @@ def get_town(conn, IDUser):
         SELECT CityName FROM User where IDUser='{IDUser}'
     ''', conn)
     return df['CityName'].values[0]
+
+
+def edit_favourite_selling(conn, idSelling, idUser):
+    df = pandas.read_sql(
+        f'''
+        SELECT * FROM User_Selling where user_id='{idUser}' and selling_id='{idSelling}'
+    ''', conn)
+    isempty = df.empty
+    if isempty:
+        edit_favourite = f"""
+            INSERT INTO User_Selling('user_id', 'selling_id')
+            VALUES ('{idUser}','{idSelling}')
+        """
+    else:
+        edit_favourite = f"""
+        DELETE from User_Selling where user_id='{idUser}' and selling_id='{idSelling}'
+                """
+    execute_query(conn, edit_favourite)
+

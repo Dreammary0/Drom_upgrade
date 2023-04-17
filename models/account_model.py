@@ -80,3 +80,5 @@ def get_cities(conn):
         '''
         SELECT CityName FROM City where CountryName='Россия'
     ''', conn)
+
+
