@@ -3,8 +3,7 @@ import datetime
 from sqlite3 import Error
 
 
-
-#функция изменения базы данных
+# функция изменения базы данных
 def execute_query(connection, query):
     cursor = connection.cursor()
     try:
@@ -14,11 +13,12 @@ def execute_query(connection, query):
     except Error as e:
         print(f"The error '{e}' occurred")
 
+
 def get_cities(conn):
     return pandas.read_sql(
         '''
         SELECT CityName FROM City where CountryName='Россия'
-    ''',conn)
+    ''', conn)
 
 
 def get_brands(conn):
@@ -66,8 +66,7 @@ def get_selling(conn, city=None, brand=None, model=None, min_price=None, max_pri
     join User U on U.IDUser = Car.IDUser
     ''', conn)
     if selling_id:
-        df = df.where(df['IDSelling'] == selling_id).dropna(how='any')
-        return df
+        df = df.where(df['IDSelling'] == int(selling_id)).dropna(how='any')
     if city:
         df = df.where(df['CityName'] == city).dropna(how='any')
     if brand:
@@ -96,13 +95,14 @@ def get_selling(conn, city=None, brand=None, model=None, min_price=None, max_pri
     df = df.sort_values(by='Actuality', ascending=False)
     return df
 
+
 # Проверить актуальность и отметить как устаревшее, если его время пришло
 def check_actuality(conn):
     today = datetime.date.today()
     df = pandas.read_sql(f"""
     Select * from Selling
      WHERE ExpirationDate < '{today}' and Actuality = 1;
-    """,conn)
+    """, conn)
     isempty = df.empty
     if not isempty:
         Update_actuality = f"""
@@ -139,8 +139,8 @@ def remove_selling(conn, user_id, selling_id, act):
         conn.commit()
 
 
-def get_town(conn,IDUser):
-    df=pandas.read_sql(
+def get_town(conn, IDUser):
+    df = pandas.read_sql(
         f'''
         SELECT CityName FROM User where IDUser='{IDUser}'
     ''', conn)

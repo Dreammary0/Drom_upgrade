@@ -102,6 +102,7 @@
             <h1 align="center">Редактирование объявления</h1>
             <form class="filter" name="new_selling"
                   style="width: 800px; margin-left: auto; margin-right: auto; margin-bottom: 100px;">
+                <input type="hidden" name="submitted" value=1>
                 <select name="brand" onchange="MkModels(this.options[this.selectedIndex].text);" required>
                     <option selected disabled hidden>Марка</option>
                     {% for iter, row in iterrows(brands) %}
@@ -116,10 +117,10 @@
                     <option selected disabled hidden>Модель</option>
                     {% for iter, row in iterrows(models) %}
                         {% if row['BrandName']==brand %}
-                        <option value="{{ row['ModelName'] }}"
-                                {% if row['ModelName']==model %}selected{% endif %}>
-                            {{ row['ModelName'] }}
-                        </option>
+                            <option value="{{ row['ModelName'] }}"
+                                    {% if row['ModelName']==model %}selected{% endif %}>
+                                {{ row['ModelName'] }}
+                            </option>
                         {% endif %}
                     {% endfor %}
                 </select>
@@ -127,24 +128,26 @@
                 <textarea name="description" placeholder="Описание"
                           style="float: right; height: 369px; padding-bottom: 0; resize: none;">{{ description }}</textarea>
 
-                <input type="text" name="vin" placeholder="VIN / Номер кузова" required>
-                <input type="text" name="state_number" placeholder="Гос. номер" required>
-                <input type="text" name="engine_id" placeholder="Марка двигателя" required>
-                <input type="number" min=0 max=10 step=0.1 name="capacity" placeholder="Объем двигателя" required>
-                <input type="number" min=0 max=2000 step=1 name="hp" placeholder="Мощность двигателя" required>
+                <input type="text" name="vin" placeholder="VIN / Номер кузова" required value={{ vin }}>
+                <input type="text" name="state_number" placeholder="Гос. номер" required value={{ state_number }}>
+                <input type="text" name="engine_id" placeholder="Марка двигателя" required value={{ engine_id }}>
+                <input type="number" min=0 max=10 step=0.1 name="capacity" placeholder="Объем двигателя" required
+                       value={{ capacity }}>
+                <input type="number" min=0 max=2000 step=1 name="hp" placeholder="Мощность двигателя" required
+                       value={{ int(hp) }}>
                 <select name="fuel" required>
                     <option selected disabled hidden>Топливо</option>
                     {% for iter, row in iterrows(fuels) %}
-                        <option value={{ row['FuelType'] }}>
+                        <option value={{ row['FuelType'] }} {% if row['FuelType']==fuel %}selected{% endif %}>
                             {{ row['FuelType'] }}
                         </option>
                     {% endfor %}
                 </select>
-                <input type="number" placeholder="Год выпуска" min=1940 max=2023 name="year" required>
+                <input type="number" placeholder="Год выпуска" min=1940 max=2023 name="year" required value={{ int(year) }}>
                 <select name="transmission" required>
                     <option selected disabled hidden>КПП</option>
                     {% for iter, row in iterrows(transmissions) %}
-                        <option value={{ row['TransmissionType'] }}>
+                        <option value={{ row['TransmissionType'] }} {% if row['TransmissionType']==transmission %}selected{% endif %}>
                             {{ row['TransmissionType'] }}
                         </option>
                     {% endfor %}
@@ -152,13 +155,14 @@
                 <select name="drive" required>
                     <option selected disabled hidden>Привод</option>
                     {% for iter, row in iterrows(drives) %}
-                        <option value={{ row['DriveType'] }}>
+                        <option value={{ row['DriveType'] }} {% if row['DriveType']==drive %}selected{% endif %}>
                             {{ row['DriveType'] }}
                         </option>
                     {% endfor %}
                 </select>
-                <input type="text" name="equip_id" placeholder="Название комплектации" required>
-                <input type="number" min=0 max=100000000 step=1 name="price" placeholder="Стоимость" required>
+                <input type="text" name="equip_id" placeholder="Название комплектации" required
+                       value={{ equip_id }}>
+                <input type="number" min=0 max=100000000 step=1 name="price" placeholder="Стоимость" required value={{ int(price) }}>
                 <input type="submit" value="Сохранить изменения" style="float:right !important; width: 523px;">
             </form>
         {% endif %}
