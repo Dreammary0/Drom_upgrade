@@ -74,11 +74,11 @@ def index():
     else:
         selected_city = 'Владивосток'
 
-    df_selling = get_selling(conn, selected_city, brand, model, min_price, max_price,
-                             min_year, max_year, transmission, drive, min_hp, max_hp, user_autho=session['user_id'])
-
     if session.get('user_id') is None:
         session['user_id'] = 0
+
+    df_selling = get_selling(conn, selected_city, brand, model, min_price, max_price,
+                             min_year, max_year, transmission, drive, min_hp, max_hp, user_autho=session['user_id'])
 
     if request.values.get('remove'):
         remove_selling(conn, session['user_id'], request.values.get('remove'), act=0)
