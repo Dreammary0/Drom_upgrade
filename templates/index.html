@@ -321,7 +321,7 @@
                                             </p>
                                             <p><span style="color: gray;">Город: </span>{{ row['CityName'] }}</p>
                                             <p style="color: gray;">Объявление {{ int(row['IDSelling']) }}
-                                                от {{ row['AdditionDate'] }}</p>
+                                                от {{ row['AdditionDate'] }} 👁: {{ int(row['likes_count']) }} </p>
                                             {% if not row['Actuality'] %}
                                                 <h3 style="margin-bottom: 5px;">Автомобиль снят с продажи</h3>
                                                 <p>Контактные данные закрыты</p>

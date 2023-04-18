@@ -93,21 +93,20 @@ def get_selling(conn, city=None, brand=None, model=None, min_price=None, max_pri
         df = df.where(df['IDUser'] == user_id).dropna(how='any')
 
     df = df.sort_values(by='Actuality', ascending=False)
-
+    # Добавим столбец с избранным
     df1 = pandas.read_sql(f'''
        select * from User_Selling where user_id = '{user_autho}';
        ''', conn)
     df1.rename(columns={'selling_id': 'IDSelling', 'user_id': 'Like'}, inplace=True)
-    print(df1)
-    # объединяем таблицы по столбцу IDSelling
     result = pandas.merge(df, df1, on='IDSelling', how='left')
-    # заменяем пропущенные значения на 0
     result['Like'] = result['Like'].fillna(0)
-    print('inde[')
-    print(user_autho)
-    print(df1)
-    print(df)
-    print(result)
+
+    # Добавим столбец с количеством добавлений в избранное
+    likes_count = pandas.read_sql('''
+       select selling_id as IDSelling, count(user_id) as likes_count from User_Selling group by selling_id;''', conn)
+    result = pandas.merge(result, likes_count, on='IDSelling', how='left')
+    result['likes_count'] = result['likes_count'].fillna(0)
+
     return result
 
 
@@ -184,3 +183,8 @@ def edit_favourite_selling(conn, idSelling, idUser):
                 """
     execute_query(conn, edit_favourite)
 
+
+def get_likes_count(conn):
+    likes = pandas.read_sql('''
+    select selling_id, count(user_id) as likes_count from User_Selling group by selling_id;''', conn)
+    return likes
