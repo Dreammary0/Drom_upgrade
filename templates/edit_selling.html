@@ -82,11 +82,11 @@
 
         {% if user_id==0 %}
             <li style="float: right; background-color: black;">
-                <a style="color: #cccccc;" href={{ url_for("login") }}>Авторизоваться</a>
+                <a style="color: #cccccc;" href={{ url_for("login") }}>Вход и регистрация</a>
             </li>
         {% else %}
             <li style="float: right; background-color: black;">
-                <a style="color: #cccccc;" href={{ url_for("index") }}>Назад</a>
+                <a style="color: #cccccc; font-size: 16px;" href={{ url_for("account") }}>Назад</a>
             </li>
         {% endif %}
     </ul>

@@ -33,12 +33,10 @@ def get_models(conn):
         SELECT * FROM Model
         ''', conn)
 
-
 def get_transmissions(conn):
     return pandas.read_sql('''
         SELECT TransmissionType FROM Transmission
         ''', conn)
-
 
 def get_drives(conn):
     return pandas.read_sql('''
@@ -93,6 +91,7 @@ def get_selling(conn, city=None, brand=None, model=None, min_price=None, max_pri
         df = df.where(df['IDUser'] == user_id).dropna(how='any')
 
     df = df.sort_values(by='Actuality', ascending=False)
+
     # Добавим столбец с избранным
     df1 = pandas.read_sql(f'''
        select * from User_Selling where user_id = '{user_autho}';

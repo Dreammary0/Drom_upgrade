@@ -19,7 +19,7 @@
 
         {% if not user_id %}
             <li style="float: right; background-color: black;">
-                <a style="color: #cccccc;" href={{ url_for("login") }}>Авторизироваться</a>
+                <a style="color: #cccccc;" href={{ url_for("login") }}>Вход и регистрация</a>
             </li>
         {% else %}
             <li style="float: right; background-color: black;">
@@ -109,7 +109,7 @@
                                         <td>
                                             <h2 style="margin-top: 0;{% if not row['Actuality'] %}text-decoration: line-through;{% endif %}">
                                                     <form>
-                                                        {{ row['BrandName'] + ' ' + row['ModelName'] + ', ' + str(int(row['ReleaseDate'])) }}
+                                                        {{ str(row['BrandName']) + ' ' + str(row['ModelName']) + ', ' + str(int(row['ReleaseDate'])) }}
                                                         <input type="hidden" name="favourites"
                                                                value={{ int(round(row['IDSelling'])) }}>
                                                         <input type="submit" style="color: #db001a" class="star"
